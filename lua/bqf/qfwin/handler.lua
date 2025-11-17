@@ -237,13 +237,13 @@ function M.open(close, jumpCmd, qwinid, idx)
             if jumpCmd == 'drop' then
                 local bufInfo = fn.getbufinfo(bufnr)
                 if fname == '' or #bufInfo == 1 and #bufInfo[1].windows == 0 then
-                    api.nvim_set_current_buf(bufnr)
+                    pcall(cmd, 'buffer ' .. bufnr)
                     return
                 end
             end
             cmd(('%s %s'):format(jumpCmd, fname))
         else
-            api.nvim_set_current_buf(bufnr)
+            pcall(cmd, 'buffer ' .. bufnr)
         end
     end)
 end
